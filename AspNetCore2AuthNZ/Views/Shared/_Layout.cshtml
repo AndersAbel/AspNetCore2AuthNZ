@@ -32,6 +32,12 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a asp-area="" asp-controller="Cart" asp-action="Index">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        <span id="cart-count" class="badge">0</span>
+                    </a></li>
+                </ul>
             </div>
         </div>
     </nav>
