@@ -1,5 +1,6 @@
 ﻿using AspNetCore2AuthNZ.Data;
 using AspNetCore2AuthNZ.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCore2AuthNZ.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private ShopContext _shopContext;

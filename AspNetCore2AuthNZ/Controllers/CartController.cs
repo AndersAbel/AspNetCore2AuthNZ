@@ -9,6 +9,7 @@ using System.Security.Claims;
 
 namespace AspNetCore2AuthNZ.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private ShopContext _shopContext;

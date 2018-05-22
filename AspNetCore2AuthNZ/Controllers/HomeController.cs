@@ -12,6 +12,7 @@ namespace AspNetCore2AuthNZ.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
             return View();
