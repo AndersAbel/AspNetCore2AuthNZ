@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace AspNetCore2AuthNZ.Controllers
 {
@@ -17,7 +17,15 @@ namespace AspNetCore2AuthNZ.Controllers
             _shopContext = shopContext;
         }
 
-        private Order CurrentCart { get => _shopContext.Orders.Include(o => o.Lines).SingleOrDefault(o => o.SentTime == null); }
+        private Order CurrentCart
+        {
+            get
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                return _shopContext.Orders.Include(o => o.Lines)
+                .SingleOrDefault(o => o.SentTime == null && o.UserId == userId);
+            }
+        }
 
         public IActionResult Index()
         {
@@ -43,8 +51,12 @@ namespace AspNetCore2AuthNZ.Controllers
 
             if(order == null)
             {
-                order = new Order();
-                order.Lines = new List<OrderLine>();
+                order = new Order()
+                {
+                    Lines = new List<OrderLine>(),
+                    UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                };
+                
                 _shopContext.Orders.Add(order);
             }
 

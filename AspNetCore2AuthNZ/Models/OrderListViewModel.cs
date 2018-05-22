@@ -12,5 +12,7 @@ namespace AspNetCore2AuthNZ.Models
         public int ItemCont { get; set; }
 
         public DateTime SentTime { get; set; }
+
+        public string UserId { get; set; }
     }
 }

@@ -10,5 +10,7 @@ namespace AspNetCore2AuthNZ.Data
         public List<OrderLine> Lines { get; set; }
 
         public DateTime? SentTime { get; set; }
+
+        public string UserId { get; set; }
     }
 }

@@ -33,7 +33,8 @@ namespace AspNetCore2AuthNZ.Controllers
                 {
                     OrderId = o.Id,
                     ItemCont = o.Lines.Sum(ol => ol.Quantity),
-                    SentTime = o.SentTime.Value
+                    SentTime = o.SentTime.Value,
+                    UserId = o.UserId
                 });
 
             return View(model);
