@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Metadata;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Sustainsys.Saml2;
+using Sustainsys.Saml2.Configuration;
 
 namespace IdSrv4
 {
@@ -30,6 +33,21 @@ namespace IdSrv4
 
                     opt.ClientId = "291695820691-htajtml8utg9jlg1f0i54k3ev95d8rjm.apps.googleusercontent.com";
                     opt.ClientSecret = "EFASXK5e7SCOU07RS9wtdiem";
+                })
+                .AddSaml2("Corporate Saml2", opt =>
+                {
+                    opt.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+                    opt.SPOptions = new SPOptions
+                    {
+                        EntityId = new EntityId("https://localhost:44380/Saml2")
+                    };
+
+                    opt.IdentityProviders.Add(
+                        new IdentityProvider(new EntityId("https://stubidp.sustainsys.com/Metadata"), opt.SPOptions)
+                        {
+                            LoadMetadata = true
+                        });
                 });
         }
 

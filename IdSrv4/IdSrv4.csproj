@@ -14,6 +14,11 @@
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="2.0.3" />
+    <PackageReference Include="Sustainsys.Saml2.AspNetCore2" Version="0.24.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.IdentityModel" />
   </ItemGroup>
 
 </Project>
