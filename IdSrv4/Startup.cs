@@ -40,11 +40,11 @@ namespace IdSrv4
 
                     opt.SPOptions = new SPOptions
                     {
-                        EntityId = new EntityId("https://localhost:44380/Saml2")
+                        EntityId = new EntityId("https://localhost:44380/Saml2"),
                     };
 
                     opt.IdentityProviders.Add(
-                        new IdentityProvider(new EntityId("https://stubidp.sustainsys.com/Metadata"), opt.SPOptions)
+                        new IdentityProvider(new EntityId("https://stubidp.sustainsys.com/f93f68ef-18c6-45b8-934d-9d1032f6a6f8/Metadata"), opt.SPOptions)
                         {
                             LoadMetadata = true
                         });

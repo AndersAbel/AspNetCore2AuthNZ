@@ -209,6 +209,10 @@ namespace Host.Quickstart.Account
         private TestUser AutoProvisionUser(string provider, string providerUserId, IEnumerable<Claim> claims)
         {
             var user = _users.AutoProvisionUser(provider, providerUserId, claims.ToList());
+
+            //Quick hack to get same user id after restart.
+            user.SubjectId = $"{provider}:{providerUserId}";
+
             return user;
         }
 
