@@ -4,11 +4,29 @@
     ViewData["Title"] = "Shopping Cart";
 }
 
-<h2>Shopping Cart</h2>
+@if (Model != null)
+{
+    <h2>Shopping Cart</h2>
 
-@Html.Partial("_OrderLines", Model.Lines)
+    @Html.Partial("_OrderLines", Model.Lines)
+    <form asp-action="Send">
+        <button type="submit" class="btn btn-success">Send Order!</button>
+    </form>
+}
+else
+{
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h2>Shopping cart is empty</h2>
+        </div>
+        <div class="panel-body">
+            Why don't you <a asp-action="Index" asp-controller="Home">go back</a> and add some stuff to your cart?
+        </div>
+    </div>
 
-<form asp-action="Send">
-    <button type="submit" class="btn btn-success">Send Order!</button>
-</form>
+    
+
+}
+
+
 
