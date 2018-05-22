@@ -17,21 +17,29 @@ namespace AspNetCore2AuthNZ.Controllers
             _shopContext = shopContext;
         }
 
+        private Order CurrentCart { get => _shopContext.Orders.Include(o => o.Lines).SingleOrDefault(o => o.SentTime == null); }
+
         public IActionResult Index()
         {
-            var model = _shopContext.Orders
-                .Include(o => o.Lines)
-                .SingleOrDefault(o => o.SentTime == null);
+            return View(CurrentCart);
+        }
 
-            return View(model);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Send()
+        {
+            var order = CurrentCart;
+
+            order.SentTime = DateTime.Now;
+            _shopContext.SaveChanges();
+
+            return RedirectToAction("View", "Order", new { id = order.Id });
         }
 
         [HttpPost]
         public IActionResult Add(int product)
         {
-            var order = _shopContext.Orders
-                .Include(o => o.Lines)
-                .SingleOrDefault(o => o.SentTime == null);
+            var order = CurrentCart;
 
             if(order == null)
             {

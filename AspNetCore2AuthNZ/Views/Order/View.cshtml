@@ -1,0 +1,10 @@
+﻿@using  AspNetCore2AuthNZ.Data;
+@model Order
+@{ 
+    ViewData["Title"] = $"Order {Model.Id}";
+}
+
+<h2>@ViewData["Title"]</h2>
+Sent @Model.SentTime
+
+@Html.Partial("_OrderLines", Model.Lines)

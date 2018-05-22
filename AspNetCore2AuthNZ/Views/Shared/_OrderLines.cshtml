@@ -1,0 +1,21 @@
+﻿@using AspNetCore2AuthNZ.Data
+@model  IEnumerable<OrderLine>
+
+<table class="table table-responsive table-striped">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ol in Model)
+        {
+            <tr>
+                <td>@Product.GetName(ol.ProductId)</td>
+                <td>@ol.Quantity</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
