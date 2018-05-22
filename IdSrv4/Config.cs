@@ -35,7 +35,7 @@ namespace IdSrv4
                         IdentityServerConstants.StandardScopes.Profile
                     },
 
-                    RequireConsent = false
+                    RequireConsent = false,
                 },
 
                 new Client()
@@ -56,14 +56,16 @@ namespace IdSrv4
                     RequireConsent = false
                 }
             };
-
         }
 
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
+            var openid = new IdentityResources.OpenId();
+            openid.UserClaims.Add("role");
+
             return new List<IdentityResource>
             {
-                new IdentityResources.OpenId(),
+                openid,
                 new IdentityResources.Profile()
             };
         }
