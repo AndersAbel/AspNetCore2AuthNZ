@@ -11,7 +11,10 @@ namespace IdSrv4
     {
         public static IEnumerable<ApiResource> GetApiResources()
         {
-            return new List<ApiResource>();
+            return new List<ApiResource>()
+            {
+                new ApiResource("cart")
+            };
         }
 
         public static IEnumerable<Client> GetClients()
@@ -30,6 +33,24 @@ namespace IdSrv4
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile
+                    },
+
+                    RequireConsent = false
+                },
+
+                new Client()
+                {
+                    ClientId = "js",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { "https://localhost:44334/callback.html"},
+                    AllowedCorsOrigins = { "https://localhost:44334" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        "cart"
                     },
 
                     RequireConsent = false
