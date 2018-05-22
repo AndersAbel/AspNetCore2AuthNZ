@@ -14,16 +14,23 @@ namespace AspNetCore2AuthNZ.Controllers
     public class OrderController : Controller
     {
         private ShopContext _shopContext;
+        private IAuthorizationService _authZService;
 
-        public OrderController(ShopContext shopContext)
+        public OrderController(ShopContext shopContext, IAuthorizationService authorizationService)
         {
             _shopContext = shopContext;
+            _authZService = authorizationService;
         }
 
-        public IActionResult View(int id)
+        public async Task<IActionResult> View(int id)
         {
             var model = _shopContext.Orders.Include(o => o.Lines).Single(o => o.Id == id);
-            return View(model);
+
+            if ((await _authZService.AuthorizeAsync(User, model, "ViewOrder")).Succeeded)
+            {
+                return View(model);
+            }
+            return new ForbidResult();
         }
 
         public IActionResult Index()

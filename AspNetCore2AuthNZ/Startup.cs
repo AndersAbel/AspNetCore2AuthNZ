@@ -50,6 +50,13 @@ namespace AspNetCore2AuthNZ
                 opt.Authority = "https://localhost:44380";
                 opt.ApiName = "cart";
             });
+
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("ViewOrder", p =>
+                p.RequireAssertion(c => c.User.HasClaim("role", "Administrator")
+                || c.User.FindFirst("sub").Value == ((Order)c.Resource).UserId));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
