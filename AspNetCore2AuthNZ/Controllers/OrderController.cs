@@ -31,6 +31,8 @@ namespace AspNetCore2AuthNZ.Controllers
             var model = _shopContext
                 .Orders
                 .Where(o => o.SentTime != null)
+                .Where(o => o.UserId == User.FindFirst("sub").Value 
+                || User.HasClaim("role", "Administrator"))
                 .Select(o => new OrderListViewModel
                 {
                     OrderId = o.Id,
