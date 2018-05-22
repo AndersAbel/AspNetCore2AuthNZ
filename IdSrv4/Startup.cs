@@ -24,7 +24,8 @@ namespace IdSrv4
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients());
+                .AddInMemoryClients(Config.GetClients())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources());
 
             services.AddAuthentication()
                 .AddGoogle("Google", opt =>
