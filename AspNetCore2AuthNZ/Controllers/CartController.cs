@@ -19,7 +19,11 @@ namespace AspNetCore2AuthNZ.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = _shopContext.Orders
+                .Include(o => o.Lines)
+                .SingleOrDefault(o => o.SentTime == null);
+
+            return View(model);
         }
 
         [HttpPost]
