@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNetCore2AuthNZ.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -56,7 +57,11 @@ namespace AspNetCore2AuthNZ
                 opt.AddPolicy("ViewOrder", p =>
                 p.RequireAssertion(c => c.User.HasClaim("role", "Administrator")
                 || c.User.FindFirst("sub").Value == ((Order)c.Resource).UserId));
+
+                opt.AddPolicy("VIP", p => p.AddRequirements(new MinExistingOrderRequirement(1)));
             });
+
+            services.AddScoped<IAuthorizationHandler, MinExistingOrderHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
