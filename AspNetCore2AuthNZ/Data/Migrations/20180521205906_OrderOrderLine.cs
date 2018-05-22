@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace AspNetCore2AuthNZ.data.Migrations
+namespace AspNetCore2AuthNZ.Data.Migrations
 {
     public partial class OrderOrderLine : Migration
     {

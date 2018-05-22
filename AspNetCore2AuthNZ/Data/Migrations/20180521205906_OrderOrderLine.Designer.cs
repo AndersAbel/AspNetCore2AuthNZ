@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace AspNetCore2AuthNZ.data.Migrations
+namespace AspNetCore2AuthNZ.Data.Migrations
 {
     [DbContext(typeof(ShopContext))]
     [Migration("20180521205906_OrderOrderLine")]

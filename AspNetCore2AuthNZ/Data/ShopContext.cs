@@ -21,5 +21,10 @@ namespace AspNetCore2AuthNZ.Data
             modelBuilder.Entity<OrderLine>()
                 .HasKey(ol => new { ol.OrderId, ol.ProductId });
         }
+
+        public int GetCartItemCount() => 
+            Orders.Include(o => o.Lines)
+            .SingleOrDefault(o => o.SentTime == null)
+            ?.Lines.Sum(ol => ol.Quantity) ?? 0;
     }
 }
