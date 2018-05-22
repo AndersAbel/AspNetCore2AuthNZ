@@ -35,6 +35,12 @@
                     <li><a asp-area="" asp-controller="Order" asp-action="Index">Orders</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text">@User.FindFirst("name")?.Value</p></li>
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <li><form asp-action="Logout" asp-controller="Home"><button class="btn btn-link navbar-btn navbar-link">Logout</button></form></li>
+
+                    }
                     <li><a asp-area="" asp-controller="Cart" asp-action="Index">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         <span id="cart-count" class="badge">@_shopContext.GetCartItemCount()</span>

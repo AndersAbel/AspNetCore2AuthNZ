@@ -1,4 +1,5 @@
 ﻿using AspNetCore2AuthNZ.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,7 +22,7 @@ namespace AspNetCore2AuthNZ.Controllers
         {
             get
             {
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var userId = User.FindFirst("sub")?.Value;
                 return _shopContext.Orders.Include(o => o.Lines)
                 .SingleOrDefault(o => o.SentTime == null && o.UserId == userId);
             }
@@ -54,7 +55,7 @@ namespace AspNetCore2AuthNZ.Controllers
                 order = new Order()
                 {
                     Lines = new List<OrderLine>(),
-                    UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                    UserId = User.FindFirst("sub")?.Value
                 };
                 
                 _shopContext.Orders.Add(order);
