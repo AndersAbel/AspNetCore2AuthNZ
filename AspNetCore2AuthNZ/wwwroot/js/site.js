@@ -26,4 +26,11 @@ mgr.getUser().then(function (user) {
     if (!user) {
         mgr.signinRedirect();
     }
+    else {
+        $.ajaxSetup({
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('Authorization', 'Bearer ' + user.access_token);
+            }
+        });
+    }
 })

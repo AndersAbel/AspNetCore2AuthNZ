@@ -47,6 +47,7 @@ namespace AspNetCore2AuthNZ.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult Add(int product)
         {
             var order = CurrentCart;

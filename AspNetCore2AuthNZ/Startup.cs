@@ -44,6 +44,11 @@ namespace AspNetCore2AuthNZ
 
                 opt.Authority = "https://localhost:44380";
                 opt.ClientId = "mvc";
+            })
+            .AddIdentityServerAuthentication(opt =>
+            {
+                opt.Authority = "https://localhost:44380";
+                opt.ApiName = "cart";
             });
         }
 
