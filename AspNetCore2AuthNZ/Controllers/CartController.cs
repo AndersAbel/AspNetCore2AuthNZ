@@ -72,7 +72,7 @@ namespace AspNetCore2AuthNZ.Controllers
 
             _shopContext.SaveChanges();
 
-            return Json(_shopContext.GetCartItemCount());
+            return Json(_shopContext.GetCartItemCount(User));
         }
     }
 }

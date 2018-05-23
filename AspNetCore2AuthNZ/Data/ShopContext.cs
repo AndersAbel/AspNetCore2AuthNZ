@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AspNetCore2AuthNZ.Data
@@ -22,9 +23,14 @@ namespace AspNetCore2AuthNZ.Data
                 .HasKey(ol => new { ol.OrderId, ol.ProductId });
         }
 
-        public int GetCartItemCount() => 
-            Orders.Include(o => o.Lines)
-            .SingleOrDefault(o => o.SentTime == null)
+        public int GetCartItemCount(ClaimsPrincipal user)
+        {
+            var userId = user.FindFirst("sub")?.Value;
+
+            return Orders.Include(o => o.Lines)
+            .SingleOrDefault(o => o.SentTime == null
+            && o.UserId == userId)
             ?.Lines.Sum(ol => ol.Quantity) ?? 0;
+        }
     }
 }

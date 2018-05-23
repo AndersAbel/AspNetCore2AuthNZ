@@ -43,7 +43,7 @@
                     }
                     <li><a asp-area="" asp-controller="Cart" asp-action="Index">
                         <span class="glyphicon glyphicon-shopping-cart"></span>
-                        <span id="cart-count" class="badge">@_shopContext.GetCartItemCount()</span>
+                        <span id="cart-count" class="badge">@_shopContext.GetCartItemCount(User)</span>
                     </a></li>
                 </ul>
             </div>
